@@ -869,10 +869,9 @@ struct ActivationTypeInfo {
     Enum::ACT_GELU,    Enum::ACT_QUICK_GELU, Enum::ACT_NONE,
     Enum::ACT_UNKNOWN};
 
-  static constexpr const char *EnumStr[] = {"tanh",    "sigmoid",    "relu",
-                                            "softmax", "leaky_relu", "swish",
-                                            "gelu",    "quick_gelu", "none",
-                                            "unknown"};
+  static constexpr const char *EnumStr[] = {
+    "tanh",  "sigmoid", "relu",       "softmax", "leaky_relu",
+    "swish", "gelu",    "quick_gelu", "none",    "unknown"};
 };
 
 /**
@@ -1066,6 +1065,31 @@ public:
   WeightRegularizer(
     nntrainer::WeightRegularizer value = nntrainer::WeightRegularizer::NONE);
   static constexpr const char *key = "weight_regularizer";
+};
+
+/**
+ * @brief     Enumeration of upsample type
+ * @todo Support torch and keras supported modes like bicubic
+ */
+struct UpsampleModeInfo {
+  /**
+   * @brief   Upsampling operation type class
+   */
+  enum class Enum { nearest, bilinear };
+  static constexpr std::initializer_list<Enum> EnumList = {Enum::nearest,
+                                                           Enum::bilinear};
+
+  static constexpr const char *EnumStr[] = {"nearest", "bilinear"};
+};
+
+/**
+ * @brief Upsample Type Enumeration Information
+ *
+ */
+class UpsampleMode final : public EnumProperty<UpsampleModeInfo> {
+public:
+  using prop_tag = enum_class_prop_tag;
+  static constexpr const char *key = "upsample";
 };
 
 /**
